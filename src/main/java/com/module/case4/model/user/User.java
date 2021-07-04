@@ -1,6 +1,7 @@
 package com.module.case4.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.module.case4.model.course.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -64,7 +65,11 @@ public class User {
 
     private String certificate;
 
-
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_subject",
+               joinColumns = @JoinColumn(name="user_id"),
+               inverseJoinColumns = @JoinColumn(name="subject_id"))
+    Set<Subject> subjects = new HashSet<>();
 
 
 
