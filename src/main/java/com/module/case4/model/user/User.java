@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -19,10 +18,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "username"),
-        @UniqueConstraint(columnNames = "email")
-})
+//@Table(name="app_users", uniqueConstraints = {
+//        @UniqueConstraint(columnNames = "username"),
+//        @UniqueConstraint(columnNames = "email")
+//})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,7 +68,7 @@ public class User {
     @JoinTable(name="user_subject",
                joinColumns = @JoinColumn(name="user_id"),
                inverseJoinColumns = @JoinColumn(name="subject_id"))
-    Set<Subject> subjects = new HashSet<>();
+    Set<Subject> monhocs = new HashSet<>();
 
 
 

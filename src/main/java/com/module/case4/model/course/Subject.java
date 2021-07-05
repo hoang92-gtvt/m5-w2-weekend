@@ -22,6 +22,4 @@ public class Subject {
     @NotBlank
     private String name;
 
-
-
 }
