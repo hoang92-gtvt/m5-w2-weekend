@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -21,6 +22,7 @@ public class Role {
     @NaturalId
     @Column(length = 60)
     private RoleName name;
+
 
 }
 

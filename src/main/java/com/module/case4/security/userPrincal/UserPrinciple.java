@@ -1,7 +1,8 @@
-package com.module.case4.security.jwt;
+package com.module.case4.security.userPrincal;
 
-import com.example.demo.model.User;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.module.case4.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,19 +33,26 @@ public class UserPrinciple implements UserDetails {
         this.avatar = avatar;
         this.roles = roles;
     }
+    //dang bi loi chua xu ly dc ve theo yeu cau
     public static UserPrinciple build(User user){
-        List<GrantedAuthority> authorities = user.getRoles().stream().map(role->
-                new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
-        return new UserPrinciple(
-                user.getId(),
-                user.getName(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getAvatar(),
-                authorities
-        );
+       return new UserPrinciple();
     }
+
+//    public static UserPrinciple build(User user){
+//        List<GrantedAuthority> authorities = user.getRoles().stream().map(role->
+//                new SimpleGrantedAuthority(role.getName().name())).collect(Collectors.toList());
+//        return new UserPrinciple(
+//                user.getId(),
+//                user.getName(),
+//                user.getUsername(),
+//                user.getEmail(),
+//                user.getPassword(),
+//                user.getAvatar(),
+//                authorities
+//        );
+//    }
+
+
     public String getName() {
         return name;
     }
