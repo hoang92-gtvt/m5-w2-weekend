@@ -24,6 +24,7 @@ public class Course {
 
     @NotBlank
     @ManyToOne
+    @JoinColumn( name = "subject")
     private Subject subject;
 
     @NotBlank
@@ -34,6 +35,7 @@ public class Course {
 
 
     @ManyToOne
+    @JoinColumn( name = "district")
     private District district;
 
     @NotBlank
