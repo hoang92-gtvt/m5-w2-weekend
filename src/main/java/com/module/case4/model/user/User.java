@@ -18,10 +18,10 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@Table(name="app_users", uniqueConstraints = {
-//        @UniqueConstraint(columnNames = "username"),
-//        @UniqueConstraint(columnNames = "email")
-//})
+@Table(name="app_users", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
+})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
