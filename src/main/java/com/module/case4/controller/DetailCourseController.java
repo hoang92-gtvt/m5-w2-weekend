@@ -60,4 +60,16 @@ public class DetailCourseController {
         }
     }
 
+    @GetMapping("/find/{name}/{status}")
+    public ResponseEntity<?> findByDetailByStatus(@PathVariable String name , String status){
+        List<DetailCourse> detailCourse = (List<DetailCourse>) detailCourseService.findDetailByUserStudentAndStatus(name,status);
+        if (detailCourse!=null){
+            return new ResponseEntity<>(detailCourse,HttpStatus.OK);
+        }
+        return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
+
+
 }
