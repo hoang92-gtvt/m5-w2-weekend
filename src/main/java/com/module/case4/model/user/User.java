@@ -35,10 +35,7 @@ public class User {
     @Size(min = 3, max = 50)
     private String username;
 
-    @NaturalId
-    @NotBlank
-    @Size(max = 50)
-    @Email
+
     private String email;
 
 
@@ -51,8 +48,11 @@ public class User {
     @Lob // khai báo ký tự rất dài
     private String avatar;
 
-    @ManyToOne
-    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="user_role",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name="role_id"))
+    private Set<Role> roles;
 
     @NotBlank
     private String phone;
@@ -68,7 +68,7 @@ public class User {
     @JoinTable(name="user_subject",
                joinColumns = @JoinColumn(name="user_id"),
                inverseJoinColumns = @JoinColumn(name="subject_id"))
-    Set<Subject> monhocs = new HashSet<>();
+    Set<Subject> subjects = new HashSet<>();
 
 
 

@@ -1,0 +1,3 @@
+databaseName=jdbc:mysql://localhost:3306/case_m4
+userName=root
+passWord=677264
