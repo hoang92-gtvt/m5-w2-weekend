@@ -4,6 +4,7 @@ package com.module.case4.controller;
 import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
 import com.module.case4.model.users.UserForm;
+import com.module.case4.security.appUser.AppUserService;
 import com.module.case4.service.IRoleService;
 import com.module.case4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
+
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired
@@ -24,6 +26,14 @@ public class UserController {
 
     @Autowired
     public IRoleService roleService;
+
+    @Autowired
+    public AppUserService appUserService;
+
+    @ModelAttribute("currentUser")
+       public User getUser(){
+        return appUserService.getCurrentUser();
+       }
 
     @ModelAttribute("roles")
     public List<Role> findAllRole(){
@@ -36,10 +46,7 @@ public class UserController {
         return roles;
     }
 
-//    @ModelAttribute("currentAdmin")
-//    public  User getUser(){
-//        return userService.
-//    }
+
 
     @GetMapping("/admin/findAll")
     public ResponseEntity<List<User>> findAllUser(){
@@ -58,9 +65,10 @@ public class UserController {
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody UserForm  userForm){
+    public void createUser(@ModelAttribute UserForm userForm){
         User user = userService.changeUserForm(userForm);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        User user1= userService.save(user);
+
     }
     @GetMapping("/create")
     public ModelAndView formCreate(){
