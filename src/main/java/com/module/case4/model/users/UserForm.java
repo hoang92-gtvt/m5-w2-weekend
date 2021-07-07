@@ -1,4 +1,4 @@
-package com.module.case4.model.user;
+package com.module.case4.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.module.case4.model.course.Subject;

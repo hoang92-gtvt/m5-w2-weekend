@@ -1,9 +1,8 @@
 package com.module.case4.service;
 
-import com.module.case4.model.user.User;
-import com.module.case4.model.user.UserForm;
+import com.module.case4.model.users.User;
+import com.module.case4.model.users.UserForm;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface IUserService  {
