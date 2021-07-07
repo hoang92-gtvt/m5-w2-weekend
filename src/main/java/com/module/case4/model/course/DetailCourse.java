@@ -20,7 +20,7 @@ public class DetailCourse {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+//    @JoinColumn(name = "course_id")
     private Course course;
 
     private Date startTime;
