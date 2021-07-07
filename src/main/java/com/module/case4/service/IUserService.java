@@ -11,7 +11,7 @@ public interface IUserService {
     Boolean existsByEmail(String email); //email da co trong DB chua
     User save(User user);
 
-    List<Optional<User>> findAll();
+    Iterable<User> findAll();
     Optional<User> findById(Long id);
     void delete(Long id);
 
