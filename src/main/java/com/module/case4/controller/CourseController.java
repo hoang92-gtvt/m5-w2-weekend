@@ -17,13 +17,13 @@ public class CourseController {
     private ICourseService courseService;
 
     @GetMapping("")
-    public ResponseEntity<?> getAll(){
+    public ResponseEntity<List<Course>> getAllCourse(){
         List<Course> courses =  courseService.getAll();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/find")
-    public ResponseEntity<?> getUser(@PathVariable Long id){
+    public ResponseEntity<?> getCourse(@PathVariable Long id){
         return new ResponseEntity<>(courseService.getOne(id),HttpStatus.OK);
 
     }

@@ -6,6 +6,7 @@ import com.module.case4.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -13,30 +14,29 @@ public class CourseService implements ICourseService {
     @Autowired
     private ICourseRepository repoCourse;
 
-
     @Override
-    public Iterable<Course> fillAll() {
+    public List getAll() {
         return repoCourse.findAll();
     }
 
     @Override
-    public void updateOrSave(Course course) {
-        repoCourse.save(course);
-    }
-
-    @Override
-    public void delete(Long id) {
-        repoCourse.deleteById(id);
-    }
-
-
-    @Override
-    public Optional<Course> findById(Long id) {
+    public Optional getOne(Long id) {
         return repoCourse.findById(id);
     }
 
     @Override
-    public Course getCusByName(String keyname) {
+    public void save(Course course) {
+        repoCourse.save(course);
+    }
+
+
+    @Override
+    public void delete(Long id) {
+    repoCourse.deleteById(id);
+    }
+
+    @Override
+    public Course findCourseByName(String keyname) {
         return repoCourse.findCourseByName(keyname);
     }
 }
