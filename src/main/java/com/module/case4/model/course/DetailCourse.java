@@ -20,7 +20,7 @@ public class DetailCourse {
     private Long id;
 
     @ManyToOne
-//    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "course_id")
     private Course course;
 
     private Date startTime;
@@ -31,9 +31,11 @@ public class DetailCourse {
     private Status status = Status.WAIT;
 
     @ManyToOne
+    @JoinColumn(name = "userTeacher_id")
     private User userTeacher;
 
     @ManyToOne
+    @JoinColumn(name = "userStudent_id")
     private User userStudent;
 
 }
