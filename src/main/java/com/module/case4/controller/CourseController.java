@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/course")
 public class CourseController {
     @Autowired
     private ICourseService courseService;
 
-    @GetMapping("")
+    @GetMapping("/findAllCourse")
     public ResponseEntity<List<Course>> getAllCourse(){
         List<Course> courses =  courseService.getAll();
         return new ResponseEntity<>(courses, HttpStatus.OK);
