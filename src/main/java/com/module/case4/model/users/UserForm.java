@@ -1,4 +1,4 @@
-package com.module.case4.model.user;
+package com.module.case4.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.module.case4.model.course.Subject;
@@ -39,7 +39,7 @@ public class UserForm {
     private MultipartFile avatar;
 
     @NotBlank
-    private Role role;
+    private Set<Role> roles;
 
 
     private String phone;
@@ -56,14 +56,14 @@ public class UserForm {
     public UserForm() {
     }
 
-    public UserForm(Long id, @NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Email String email, @NotBlank @Size(min = 6, max = 50) String password, MultipartFile avatar, @NotBlank Role role, String phone, String address, String description, String certificate, Set<Subject> subjects) {
+    public UserForm(Long id, @NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Email String email, @NotBlank @Size(min = 6, max = 50) String password, MultipartFile avatar, @NotBlank Set<Role> roles, String phone, String address, String description, String certificate, Set<Subject> subjects) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
         this.avatar = avatar;
-        this.role = role;
+        this.roles = roles;
         this.phone = phone;
         this.address = address;
         this.description = description;
@@ -119,12 +119,12 @@ public class UserForm {
         this.avatar = avatar;
     }
 
-    public Role getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public String getPhone() {
@@ -166,4 +166,6 @@ public class UserForm {
     public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
     }
+
+
 }

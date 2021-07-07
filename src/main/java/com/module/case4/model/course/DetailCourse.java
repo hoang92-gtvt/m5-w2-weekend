@@ -1,10 +1,9 @@
 package com.module.case4.model.course;
 
-import com.module.case4.model.user.User;
+import com.module.case4.model.users.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.Date;
