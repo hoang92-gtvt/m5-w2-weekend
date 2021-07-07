@@ -22,12 +22,9 @@ public class DetailCourse {
     @JoinColumn(name = "course_id")
     private Course course;
 
-
     private Date startTime;
 
-
     private Date endTime;
-
 
     private Status status = Status.WAIT;
 
