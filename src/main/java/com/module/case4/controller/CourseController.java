@@ -12,19 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/course")
 public class CourseController {
     @Autowired
     private ICourseService courseService;
 
     @GetMapping("")
-    public ResponseEntity<List<Course>> getAllCourse(){
-        List<Course> courses =  courseService.getAll();
+    public ResponseEntity<Iterable<Course>> getAllCourse(){
+       Iterable<Course> courses =  courseService.getAll();
         return new ResponseEntity<>(courses, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/find")
     public ResponseEntity<?> getCourse(@PathVariable Long id){
-        return new ResponseEntity<>(courseService.getOne(id),HttpStatus.OK);
+        return new ResponseEntity<>(courseService.getByID(id),HttpStatus.OK);
 
     }
 
@@ -36,7 +37,7 @@ public class CourseController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<?> update(@PathVariable Long id,@RequestBody Course course){
-        Optional<Course> course1 = courseService.getOne(id);
+        Optional<Course> course1 = courseService.getByID(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
