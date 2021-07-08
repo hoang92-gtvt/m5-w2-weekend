@@ -12,36 +12,39 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/api/district")
 public class DistrictController {
-   @Autowired
-   private IDistrictService districtService;
+    @Autowired
+    private IDistrictService districtService;
+
     @GetMapping("")
-    public ResponseEntity<List<District>> getAllDistrict(){
-        List<District> districts=  districtService.getAll();
+    public ResponseEntity<Iterable<District>> getAllCourse() {
+        Iterable<District> districts = districtService.getAll();
         return new ResponseEntity<>(districts, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/find")
-    public ResponseEntity<?> getCourse(@PathVariable Long id){
-        return new ResponseEntity<>(districtService.getOne(id),HttpStatus.OK);
+    public ResponseEntity<?> getCourse(@PathVariable Long id) {
+        return new ResponseEntity<>(districtService.getByID(id), HttpStatus.OK);
 
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> create(@RequestBody District district){
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@RequestBody District district) {
         districtService.save(district);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}/update")
-    public ResponseEntity<?> update(@PathVariable Long id,@RequestBody District district){
-        Optional<District> district1= districtService.getOne(id);
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody District district) {
+        Optional<District> district1 = districtService.getByID(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-       districtService.delete(id);
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        districtService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
+
