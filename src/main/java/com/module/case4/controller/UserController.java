@@ -29,11 +29,11 @@ public class UserController {
 
     @Autowired
     public AppUserService appUserService;
-
-    @ModelAttribute("currentUser")
-       public User getUser(){
-        return appUserService.getCurrentUser();
-       }
+//
+//    @ModelAttribute("currentUser")
+//       public User getUser(){
+//        return appUserService.getCurrentUser();
+//       }
 
     @ModelAttribute("roles")
     public List<Role> findAllRole(){
@@ -64,10 +64,18 @@ public class UserController {
         }
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
-    @PostMapping("/create")
+    @PostMapping("/create2")
     public void createUser(@ModelAttribute UserForm userForm){
         User user = userService.changeUserForm(userForm);
         User user1= userService.save(user);
+
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<User> createUser2(@RequestBody UserForm userForm){
+        User user = userService.changeUserForm(userForm);
+        userService.save(user);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
 
     }
     @GetMapping("/create")
@@ -77,6 +85,13 @@ public class UserController {
 
         return mav;
 
+    }
+
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id){
+        userService.delete(id);
+        String message="User is deleted";
+        return new ResponseEntity<>(message,HttpStatus.OK);
     }
 
 }
