@@ -43,4 +43,59 @@ public class Course {
 
     private String description;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getKeyName() {
+        return keyName;
+    }
+
+    public void setKeyName(String keyName) {
+        this.keyName = keyName;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Long getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(Long groupName) {
+        this.groupName = groupName;
+    }
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public String getPeriodOfTime() {
+        return periodOfTime;
+    }
+
+    public void setPeriodOfTime(String periodOfTime) {
+        this.periodOfTime = periodOfTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
