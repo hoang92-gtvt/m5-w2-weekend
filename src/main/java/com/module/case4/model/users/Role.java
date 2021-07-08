@@ -1,4 +1,4 @@
-package com.module.case4.model.user;
+package com.module.case4.model.users;
 
 
 import lombok.AllArgsConstructor;
@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Data
@@ -22,6 +21,8 @@ public class Role {
     @NaturalId
     @Column(length = 60)
     private RoleName name;
+
+
 
 
 }

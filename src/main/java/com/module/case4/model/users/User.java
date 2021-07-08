@@ -1,14 +1,12 @@
-package com.module.case4.model.user;
+package com.module.case4.model.users;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.module.case4.model.course.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
