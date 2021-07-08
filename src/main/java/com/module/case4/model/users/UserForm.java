@@ -35,7 +35,7 @@ public class UserForm {
     private String password;
 
 
-    @Lob // khai báo ký tự rất dài
+
     private MultipartFile avatar;
 
     @NotBlank
