@@ -7,6 +7,7 @@ import com.module.case4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,6 +39,7 @@ public class UserService implements IUserService {
     }
 
     @Override
+    @Transactional
     public User save(User user) {
         return userRepository.save(user);
     }
@@ -78,16 +80,17 @@ public class UserService implements IUserService {
         user.setSubjects(userForm.getSubjects());
 
         MultipartFile multipartFile = userForm.getAvatar();
-        String fileName = multipartFile.getOriginalFilename();
-        String fileUpload = environment.getProperty("upload.path").toString();
-        try {
-            FileCopyUtils.copy(userForm.getAvatar().getBytes(), new File(fileUpload + fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(multipartFile!=null) {
+            String fileName = multipartFile.getOriginalFilename();
+            String fileUpload = environment.getProperty("upload.path").toString();
+            try {
+                FileCopyUtils.copy(userForm.getAvatar().getBytes(), new File(fileUpload + fileName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            user.setAvatar(fileName);
         }
-
-        user.setAvatar(fileName);
-
 
         return user;
 

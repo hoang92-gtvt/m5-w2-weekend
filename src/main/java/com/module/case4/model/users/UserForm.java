@@ -29,7 +29,7 @@ public class UserForm {
     private String email;
 
 
-    @JsonIgnore //khong truyen du lieu ra ngoai
+
     @NotBlank
     @Size(min = 6, max = 50)
     private String password;
@@ -38,16 +38,15 @@ public class UserForm {
 
     private MultipartFile avatar;
 
-    @NotBlank
+
     private Set<Role> roles;
 
-
+    @NotBlank
     private String phone;
 
     private String address;
 
     private String description;
-
 
     private String certificate;
 
@@ -56,7 +55,7 @@ public class UserForm {
     public UserForm() {
     }
 
-    public UserForm(Long id, @NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Email String email, @NotBlank @Size(min = 6, max = 50) String password, MultipartFile avatar, @NotBlank Set<Role> roles, String phone, String address, String description, String certificate, Set<Subject> subjects) {
+    public UserForm(Long id, @NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, @NotBlank @Email String email, @NotBlank @Size(min = 6, max = 50) String password, MultipartFile avatar, Set<Role> roles, @NotBlank String phone, String address, String description, String certificate, Set<Subject> subjects) {
         this.id = id;
         this.name = name;
         this.username = username;
