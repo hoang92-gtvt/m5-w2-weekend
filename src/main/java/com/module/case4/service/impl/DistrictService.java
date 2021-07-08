@@ -12,23 +12,24 @@ import java.util.Optional;
 public class DistrictService implements IDistrictService {
     @Autowired
    private IDistrictRepository RepoDistrict;
+
     @Override
-    public List<District> getAll() {
+    public Iterable<District> getAll() {
        return RepoDistrict.findAll();
     }
 
     @Override
-    public Optional<District> getOne(Long id) {
-        return RepoDistrict.findById(id);
+    public Optional<District> getByID(Long id) {
+    return RepoDistrict.findById(id);
     }
 
     @Override
-    public void save(District district) {
-   RepoDistrict.save(district);
+    public District save(District district) {
+        return RepoDistrict.save(district);
     }
 
     @Override
     public void delete(Long id) {
- RepoDistrict.deleteById(id);
+RepoDistrict.deleteById(id);
     }
 }

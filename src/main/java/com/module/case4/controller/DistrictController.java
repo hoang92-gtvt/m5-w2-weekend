@@ -12,20 +12,20 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("api/district")
+@RequestMapping("/api/district")
 public class DistrictController {
     @Autowired
     private IDistrictService districtService;
 
     @GetMapping("")
-    public ResponseEntity<List<District>> getAllCourse() {
-        List<District> districts = districtService.getAll();
+    public ResponseEntity<Iterable<District>> getAllCourse() {
+        Iterable<District> districts = districtService.getAll();
         return new ResponseEntity<>(districts, HttpStatus.OK);
     }
 
     @GetMapping("/{id}/find")
     public ResponseEntity<?> getCourse(@PathVariable Long id) {
-        return new ResponseEntity<>(districtService.getOne(id), HttpStatus.OK);
+        return new ResponseEntity<>(districtService.getByID(id), HttpStatus.OK);
 
     }
 
@@ -37,7 +37,7 @@ public class DistrictController {
 
     @PutMapping("/{id}/update")
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody District district) {
-        Optional<District> district1 = districtService.getOne(id);
+        Optional<District> district1 = districtService.getByID(id);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
