@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/detail")
+@CrossOrigin(origins = "*")
 public class DetailCourseController {
     @Autowired
     IDetailCourseService detailCourseService;
@@ -61,15 +62,12 @@ public class DetailCourseController {
     }
 
     @GetMapping("/find/{name}/{status}")
-    public ResponseEntity<?> findByDetailByStatus(@PathVariable String name , String status){
+    public ResponseEntity<?> findByDetailByStatus(@PathVariable String name,@PathVariable String status){
         List<DetailCourse> detailCourse = (List<DetailCourse>) detailCourseService.findDetailByUserStudentAndStatus(name,status);
         if (detailCourse!=null){
             return new ResponseEntity<>(detailCourse,HttpStatus.OK);
         }
         return new  ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-
-
 
 }
