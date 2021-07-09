@@ -86,10 +86,11 @@ public class UserController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser2(@ModelAttribute UserForm userForm){
+    public ResponseEntity<String> createUser2(@ModelAttribute UserForm userForm){
         User user = userService.changeUserForm(userForm);
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        String message= "Add User Complete" ;
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
 
     }
 
