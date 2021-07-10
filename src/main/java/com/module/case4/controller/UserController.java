@@ -87,10 +87,11 @@ public class UserController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<User> createUser2(@ModelAttribute UserForm userForm){
+    public ResponseEntity<String> createUser2(@ModelAttribute UserForm userForm){
         User user = userService.changeUserForm(userForm);
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        String message= "Add User Complete" ;
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
 
     }
 
@@ -137,6 +138,20 @@ public class UserController {
         }
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
+
+    @GetMapping("/findByRole/{id}")
+    public ResponseEntity<List<User>> findUserByRole(@PathVariable Long id){
+        Optional<Role> role = roleService.getByID(id);
+        if(role.isPresent()) {
+            List<User> users = (List<User>) userService.findByRoles(role.get());
+            if (!users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 
 
 }
