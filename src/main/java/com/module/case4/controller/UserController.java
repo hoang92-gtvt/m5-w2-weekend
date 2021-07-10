@@ -62,6 +62,7 @@ public class UserController {
 
     @GetMapping("/admin/findAll")
     public ResponseEntity<List<User>> findAllUser(){
+
         List<User> users = (List<User>) userService.findAll();
         if(users.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
