@@ -144,7 +144,7 @@ public class UserController {
         Optional<Role> role = roleService.getByID(id);
         if(role.isPresent()) {
             List<User> users = (List<User>) userService.findByRoles(role.get());
-            if (!users.isEmpty()) {
+            if (users.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
             return new ResponseEntity<>(users, HttpStatus.OK);
