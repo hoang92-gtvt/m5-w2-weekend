@@ -1,5 +1,6 @@
 package com.module.case4.service;
 
+import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
 import com.module.case4.model.users.UserForm;
 
@@ -17,6 +18,8 @@ public interface IUserService  {
 
     User changeUserForm(UserForm userForm);
 
+    Iterable<User> findByRoles(Role role);
+    Iterable<User> findByRoles(Long role_id);
 
 
 }

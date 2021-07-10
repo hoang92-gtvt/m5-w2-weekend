@@ -1,5 +1,6 @@
 package com.module.case4.repository;
 
+import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -12,5 +13,9 @@ public interface IUserRepository extends JpaRepository<User, Long> {
 
     Boolean existsByUsername(String username); //username da co trong DB chua, khi tao du lieu
     Boolean existsByEmail(String email); //email da co trong DB chua
+
+    Iterable<User> findByRoles(Role role);
+
+    Iterable<User> findByRoles(Long role_id);
 
 }

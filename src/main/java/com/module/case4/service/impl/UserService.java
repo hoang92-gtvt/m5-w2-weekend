@@ -1,5 +1,6 @@
 package com.module.case4.service.impl;
 
+import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
 import com.module.case4.model.users.UserForm;
 import com.module.case4.repository.IUserRepository;
@@ -94,6 +95,17 @@ public class UserService implements IUserService {
 
         return user;
 
+
+    }
+
+    @Override
+    public Iterable<User> findByRoles(Role role) {
+        return userRepository.findByRoles(role);
+    }
+
+    @Override
+    public Iterable<User> findByRoles(Long role_id) {
+        return userRepository.findByRoles(role_id);
 
     }
 

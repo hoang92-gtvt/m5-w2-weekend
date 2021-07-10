@@ -138,5 +138,19 @@ public class UserController {
         return new ResponseEntity<>(user.get(), HttpStatus.OK);
     }
 
+    @GetMapping("/findByRole/{id}")
+    public ResponseEntity<List<User>> findUserByRole(@PathVariable Long id){
+        Optional<Role> role = roleService.getByID(id);
+        if(role.isPresent()) {
+            List<User> users = (List<User>) userService.findByRoles(role.get());
+            if (!users.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
 
 }
