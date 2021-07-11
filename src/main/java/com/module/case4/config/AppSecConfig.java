@@ -41,6 +41,8 @@ public class AppSecConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests().antMatchers("/api/district/**").permitAll()
                 .and()
 
+                .authorizeRequests().antMatchers("/").permitAll()
+                .and()
                 .formLogin()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));

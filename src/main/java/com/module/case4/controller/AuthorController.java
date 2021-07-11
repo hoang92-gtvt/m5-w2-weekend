@@ -2,10 +2,15 @@ package com.module.case4.controller;
 
 
 import com.module.case4.dto.LoginRequest;
+import com.module.case4.dto.UserLogin;
+import com.module.case4.model.users.Role;
+import com.module.case4.model.users.User;
 import com.module.case4.repository.IRoleRepository;
 import com.module.case4.repository.IUserRepository;
 import com.module.case4.security.appUser.AppUserService;
 import com.module.case4.security.appUser.IAppUserService;
+import com.module.case4.service.IRoleService;
+import com.module.case4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
@@ -25,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,58 +42,39 @@ public class AuthorController {
     AppUserService appUserService;
 
     @Autowired
-    IUserRepository userRepository;
+    IUserService userService;
 
     @Autowired
-    IRoleRepository roleRepository;
+    IRoleService roleService;
 
 
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Validated @RequestBody LoginRequest loginRequest, HttpServletResponse response, HttpServletRequest request){
-        String username= request.getHeader("username");
-        String password= request.getHeader("password");
-        if(username==null||password==null){
-            return new ResponseEntity<>()
-        }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Validated @RequestBody LoginRequest loginRequest){
+        String message= "Login fail";
+        Optional<User> user = userService.findByUsername(loginRequest.getUsername());
+
+        if(user.isPresent()){
+
+            if(user.get().getPassword().equals(loginRequest.getPassword())){
+                String name = user.get().getName();
+                Role roles = (Role) user.get().getRoles().toArray()[0];
+                String role = roles.getName().toString();
+                Long id = user.get().getId();
 
 
-        else {
-            return new ResponseEntity<>(new MessageResponse("xin lỗi tài khoản đã bị khoá"),HttpStatus.OK);
-        }
-
-    }
-    @PostMapping("/signup")
-    public ResponseEntity<?> register(@Valid @RequestBody SignupRequest signUpForm){
-        if(userRepository.existsByUserName(signUpForm.getUserName())){
-            return new ResponseEntity<>(new MessageResponse("The username existed! Please try again!"), HttpStatus.NOT_FOUND);
-        }
-        if(userRepository.existsByEmail(signUpForm.getEmail())){
-            return new ResponseEntity<>(new MessageResponse("The email existed! Please try again"), HttpStatus.NOT_FOUND);
-        }
-        User user = new User(signUpForm.getUserName(), signUpForm.getEmail(),passwordEncoder.encode(signUpForm.getPassWord()));
-        Set<String> strRoles = signUpForm.getRole();
-        Set<Role> roles = new HashSet<>();
-        for (String role: strRoles
-        ) {
-            switch (role){
-                case "admin":
-                    Role adminRole = roleRepository.findByName("ROLE_ADMIN").orElseThrow(
-                            ()-> new RuntimeException("Role not found")
-                    );
-                    roles.add(adminRole);
-                    break;
-                default:
-                    Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow( ()-> new RuntimeException("Role not found"));
-                    roles.add(userRole);
+                return new ResponseEntity<>(
+                        new UserLogin(name,role, id),  HttpStatus.OK);
             }
+
+
         }
-        ;
-        user.setRoles(roles);
-        user.setName(signUpForm.getName());
-        userRepository.save(user);
-        return new ResponseEntity<>(new MessageResponse("Create user success!"), HttpStatus.OK);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+
+
+
     }
+
 
 
 
