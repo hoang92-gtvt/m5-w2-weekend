@@ -50,7 +50,7 @@ public class AuthorController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Validated @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> login(@ModelAttribute LoginRequest loginRequest){
         String message= "Login fail";
         Optional<User> user = userService.findByUsername(loginRequest.getUsername());
 
@@ -61,10 +61,11 @@ public class AuthorController {
                 Role roles = (Role) user.get().getRoles().toArray()[0];
                 String role = roles.getName().toString();
                 Long id = user.get().getId();
+                String image = user.get().getAvatar();
 
 
                 return new ResponseEntity<>(
-                        new UserLogin(name,role, id),  HttpStatus.OK);
+                        new UserLogin(name,role, id, image),  HttpStatus.OK);
             }
 
 

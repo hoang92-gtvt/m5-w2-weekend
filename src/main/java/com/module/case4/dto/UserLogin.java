@@ -4,11 +4,13 @@ public class UserLogin {
     private String name;
     private String role;
     private Long id;
+    private String image;
 
-    public UserLogin(String name, String role, Long id) {
+    public UserLogin(String name, String role, Long id, String image) {
         this.name = name;
         this.role = role;
         this.id = id;
+        this.image = image;
     }
 
     public UserLogin() {
@@ -36,5 +38,13 @@ public class UserLogin {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
