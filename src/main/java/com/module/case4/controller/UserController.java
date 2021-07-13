@@ -108,11 +108,12 @@ public class UserController {
 
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<User> editUser(@ModelAttribute UserForm userForm, @PathVariable Long id){
+    public ResponseEntity<?> editUser(@ModelAttribute UserForm userForm, @PathVariable Long id){
         User user = userService.changeUserForm(userForm);
         user.setId(id);
         userService.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        String message = "Update compelete";
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PutMapping("/edit/{id}/image")
