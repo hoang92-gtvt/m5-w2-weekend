@@ -25,25 +25,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+//    @NotBlank
+//    @Size(min = 3, max = 50)
     private String name; // them vao de hien thi ten nguoi dung thay cho ten username
 
-    @NotBlank
-    @Size(min = 3, max = 50)
+//    @NotBlank
+//    @Size(min = 3, max = 50)
     private String username;
 
 
     private String email;
 
 
-    @JsonIgnore //khong truyen du lieu ra ngoai
-    @NotBlank
-    @Size(min = 6, max = 50)
+//    @JsonIgnore //khong truyen du lieu ra ngoai
     private String password;
 
-
-    @Lob // khai báo ký tự rất dài
     private String avatar;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -68,10 +64,11 @@ public class User {
                inverseJoinColumns = @JoinColumn(name="subject_id"))
     Set<Subject> subjects = new HashSet<>();
 
-    public User(@NotBlank @Size(min = 3, max = 50) String name, @NotBlank @Size(min = 3, max = 50) String username, String email, @NotBlank @Size(min = 6, max = 50) String password) {
+    public User(String name, String username, String email, String password, Set<Role> roles) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 }

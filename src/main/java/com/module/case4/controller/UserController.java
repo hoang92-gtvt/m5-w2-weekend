@@ -1,10 +1,9 @@
 package com.module.case4.controller;
 
 
+import com.module.case4.dto.UserRegister;
 import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
-import com.module.case4.model.users.UserForm;
-import com.module.case4.security.appUser.AppUserService;
 import com.module.case4.service.IRoleService;
 import com.module.case4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,18 +32,6 @@ public class UserController {
 
     @Autowired
     Environment environment;
-
-
-    @Autowired
-    public AppUserService appUserService;
-
-//    @ModelAttribute("currentUser")
-//       public User getUser(){
-//        User userCurrent= appUserService.getCurrentUser();
-//        System.out.println(userCurrent.toString());
-//        return userCurrent;
-//
-//       }
 
     @ModelAttribute("roles")
     public List<Role> findAllRole(){
@@ -88,9 +74,9 @@ public class UserController {
 //    }
 
     @PostMapping("/create")
-    public ResponseEntity<String> createUser2(@ModelAttribute UserForm userForm){
-        User user = userService.changeUserForm(userForm);
-        userService.save(user);
+    public ResponseEntity<String> createUser2(@ModelAttribute UserRegister userRegister){
+        User user1 = userService.changeUserForm(userRegister);
+        userService.save(user1);
         String message= "Add User Complete" ;
         return new ResponseEntity<>(message, HttpStatus.CREATED);
 
@@ -108,8 +94,8 @@ public class UserController {
 
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<?> editUser(@ModelAttribute UserForm userForm, @PathVariable Long id){
-        User user = userService.changeUserForm(userForm);
+    public ResponseEntity<?> editUser(@ModelAttribute UserRegister userRegister, @PathVariable Long id){
+        User user = userService.changeUserForm(userRegister);
         user.setId(id);
         userService.save(user);
         String message = "Update compelete";

@@ -1,12 +1,13 @@
 package com.module.case4.service.impl;
 
+import com.module.case4.dto.UserRegister;
 import com.module.case4.model.users.Role;
 import com.module.case4.model.users.User;
-import com.module.case4.model.users.UserForm;
 import com.module.case4.repository.IUserRepository;
 import com.module.case4.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Optional;
 @Service
 public class UserService implements IUserService {
@@ -23,6 +25,9 @@ public class UserService implements IUserService {
 
     @Autowired
     Environment environment;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public Optional<User> findByUsername(String name) {
@@ -62,30 +67,32 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User changeUserForm(UserForm userForm) {
+    public User changeUserForm(UserRegister userRegister) {
 
         User user = new User();
-        user.setId(userForm.getId());
-        user.setName(userForm.getName());
-        user.setUsername(userForm.getUsername());
-        user.setEmail(userForm.getEmail());
-        user.setPassword(userForm.getPassword());
+        user.setId(userRegister.getId());
+        user.setName(userRegister.getName());
+        user.setUsername(userRegister.getUsername());
+        user.setEmail(userRegister.getEmail());
 
-        user.setPhone(userForm.getPhone());
-        user.setRoles(userForm.getRoles());
+        String pass = userRegister.getPassword();
+        user.setPassword(passwordEncoder.encode(pass));
+
+        user.setPhone(userRegister.getPhone());
+        user.setRoles(userRegister.getRoles());
 
 
-        user.setAddress(userForm.getAddress());
-        user.setDescription(userForm.getDescription());
-        user.setCertificate(userForm.getCertificate());
-        user.setSubjects(userForm.getSubjects());
+        user.setAddress(userRegister.getAddress());
+        user.setDescription(userRegister.getDescription());
+        user.setCertificate(userRegister.getCertificate());
+        user.setSubjects(userRegister.getSubjects());
 
-        MultipartFile multipartFile = userForm.getAvatar();
+        MultipartFile multipartFile = userRegister.getAvatar();
         if(multipartFile!=null) {
             String fileName = multipartFile.getOriginalFilename();
             String fileUpload = environment.getProperty("upload.path").toString();
             try {
-                FileCopyUtils.copy(userForm.getAvatar().getBytes(), new File(fileUpload + fileName));
+                FileCopyUtils.copy(userRegister.getAvatar().getBytes(), new File(fileUpload + fileName));
             } catch (IOException e) {
                 e.printStackTrace();
             }
